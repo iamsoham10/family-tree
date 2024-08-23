@@ -6,9 +6,6 @@ const app = express();
 
 const mongoDB = "mongodb+srv://sohamchitale:mmowLavsukXBGc9K@cluster0.jorsr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
-
-
-
 main().catch((err) => console.log(err));
 async function main() {
     await mongoose.connect(mongoDB);
@@ -18,6 +15,7 @@ async function main() {
 app.use(express.json());
 
 app.use('/api', require('./routes/add-member'));
+app.use('/api', require('./routes/list-members'));
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -32,18 +30,6 @@ app.post('/add-member', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-app.post('/members', async (req, res) => {
-    try {
-        const newMember = new Member(req.body);
-        await newMember.save();
-        res.status(201).send(newMember);
-    } catch (error) {
-        console.error(error);
-        res.status(400).send(error);
-    }
-});
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

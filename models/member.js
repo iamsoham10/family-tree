@@ -19,8 +19,10 @@ const MemberSchema = new Schema({
     spouse: {
         name: {
             type: String,
-            dob: Date,
-        }
+        },
+        dob: {
+            type: Date,
+        },
     },
     parent: {
         type: Schema.Types.ObjectId,
