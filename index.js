@@ -7,6 +7,7 @@ const app = express();
 const mongoDB = "mongodb+srv://sohamchitale:mmowLavsukXBGc9K@cluster0.jorsr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 main().catch((err) => console.log(err));
+
 async function main() {
     await mongoose.connect(mongoDB);
     console.log("Connected to mongoDB successfully🎉");
@@ -16,9 +17,11 @@ app.use(express.json());
 
 app.use('/api', require('./routes/add-member'));
 app.use('/api', require('./routes/list-members'));
+app.use('/api', require('./routes/delete')); // Add this line to include the delete route
+app.use('/api', require('./routes/patch'));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('Hello World! hello');
 });
 
 app.post('/add-member', async (req, res) => {

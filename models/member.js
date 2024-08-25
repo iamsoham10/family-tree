@@ -7,6 +7,7 @@ const MemberSchema = new Schema({
         type: Number,
         required: true,
         unique: true,
+        default: () => Math.floor(Math.random() * 100000) // Optional: Default to a random unique value
     },
     name: {
         type: String,
@@ -28,10 +29,12 @@ const MemberSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Member'
     },
-    children: {
-        type: Schema.Types.ObjectId,
-        ref: 'Member'
-    }
+    children: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Member'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Member', MemberSchema);
